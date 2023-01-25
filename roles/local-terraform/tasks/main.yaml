@@ -1,0 +1,17 @@
+---
+- name: Habilita o repositório do Terraform
+  ansible.builtin.yum_repository:
+    name: hashicorp-stable
+    description: Hashicorp Stable - $basearch
+    baseurl: https://rpm.releases.hashicorp.com/RHEL/$releasever/$basearch/stable
+    enabled: true
+    gpgcheck: true
+    gpgkey: https://rpm.releases.hashicorp.com/gpg
+
+- name: Instala o terraform
+  ansible.builtin.yum:
+    name: 
+      - terraform
+      - terraform-ls
+    state: present
+...
