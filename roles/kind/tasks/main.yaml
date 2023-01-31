@@ -1,2 +1,36 @@
 ---
+- name: Obtem o binário do Kind
+  ansible.builtin.get_url:
+    url: https://kind.sigs.k8s.io/dl/v0.17.0/kind-linux-amd64
+    owner: root
+    group: root
+    mode: 0775
+    dest: /usr/local/bin/kind
+
+- name: Cria um cluster single-node do Kind
+  ansible.builtin.command:
+    cmd: /usr/local/bin/kind create cluster
+  when: multi_node == false
+    
+- name: Cria um three-node cluster do Kind
+  vars:
+    config_file_path: /root/cluster.yaml
+  block:
+    - name: Cria o arquivo de manifesto .yaml
+      ansible.builtin.template:
+        src: cluster.j2
+        dest: "{{ config_file_path }}"
+        mode: 0644
+        owner: root
+        group: root
+      when: multi_node
+
+    - name: Cria o cluster a partir do .yaml
+      ansible.builtin.command:
+        cmd: /usr/local/bin/kind create cluster --config {{ config_file_path }}
+      when: multi_node
+
+
+
+  
 ...
