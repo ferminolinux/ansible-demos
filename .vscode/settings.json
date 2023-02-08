@@ -1,5 +1,0 @@
-{
-    "yaml.schemas": {
-        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks": "file:///usr/local/src/Projetos/GIT/hefesto/roles/awscli/tasks/main.yaml"
-    }
-}
