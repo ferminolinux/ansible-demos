@@ -1,0 +1,21 @@
+---
+- name: Obtem o arquivo do awscli
+  ansible.builtin.get_url:
+    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: /tmp/awscli.zip
+    mode: 0755
+    owner: "{{ default_user }}"
+    group: "{{ default_group }}"
+
+- name: Extrai os arquivos
+  ansible.builtin.unarchive:
+    src: /tmp/awscli.zip
+    dest: /tmp/
+    owner:  "{{ default_user }}" 
+    group: "{{ default_group }}"
+    mode: 0755
+
+- name: Executa a instalação
+  ansible.builtin.command:
+    cmd: /tmp/aws/install 
+...
