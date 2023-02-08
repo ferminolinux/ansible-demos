@@ -30,6 +30,21 @@
         cmd: /usr/local/bin/kind create cluster --config {{ config_file_path }}
       when: multi_node
 
+    - name: Prepara o repositório do kubectl
+      ansible.builtin.yum_repository:
+        name: kubernetes
+        description: Kubernetes Repository
+        baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+        enabled: true
+        gpgcheck: true
+        gpgkey: https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+      
+    - name: Instala o kubectl
+      ansible.builtin.yum:
+        name: kubectl
+        state: present
+        
+
 
 
   
