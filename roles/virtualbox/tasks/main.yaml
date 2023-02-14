@@ -1,0 +1,35 @@
+---
+- name: Instala os pré-requisitos
+  ansible.builtin.yum:
+    name: 
+      - kernel-devel-{{ ansible_facts["kernel"] }} 
+      - kernel-headers
+      - "@Development tools"
+      - "@Headless management"
+    state: present
+
+- name: Instala o virtualbox
+  ansible.builtin.yum:
+    name: https://download.virtualbox.org/virtualbox/7.0.6/VirtualBox-7.0-7.0.6_155176_el8-1.x86_64.rpm 
+    disable_gpg_check: true
+    state: present
+
+- name: Reconstrói os módulos do virtualbox
+  ansible.builtin.command:
+    cmd: /usr/sbin/vboxconfig
+
+- name: Configura as redes host-only
+  ansible.builtin.template:
+    src: networks.j2
+    dest: /etc/vbox/networks.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Reinicia o serviço do virtualbox
+  ansible.builtin.systemd:
+    name: vboxdrv
+    state: restarted
+    enabled: true
+...
+
