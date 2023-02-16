@@ -1,2 +1,2 @@
 # Hefesto
-Implementação de ambientes para estudo de ferramentas através do Ansible
+Instalação e configuração de ferramentas no Almalinux utilizando o Ansible
