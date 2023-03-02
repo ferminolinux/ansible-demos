@@ -1,0 +1,24 @@
+---
+- name: Get jenkins repo
+  ansible.builtin.get_url:
+    url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    dest: /etc/yum.repos.d/jenkins.repo
+  
+- name: Import jenkins key
+  ansible.builtin.rpm_key_module:
+    key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+    state: present
+
+- name: Install jenkins
+  ansible.builtin.yum:
+    name:
+      - java-11-openjdk
+      - jenkins
+    state: present
+
+- name: Enable jenkins service
+  ansible.builtin.systemd:
+    name: jenkins
+    state: started
+    enabled: yes
+...
