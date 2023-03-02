@@ -1,2 +1,2 @@
-# Hefesto
-Instalação e configuração de ferramentas no Almalinux utilizando o Ansible
+# ansible-demos
+Demos using ansible for provisioning
