@@ -1,5 +1,5 @@
 ---
-- name: Habilita o repositório da Hashicorp
+- name: Enable hashicorp repo
   ansible.builtin.yum_repository:
     name: hashicorp-repo
     description: Hashicorp Stable - $basearch
@@ -8,7 +8,7 @@
     gpgcheck: true
     gpgkey: https://rpm.releases.hashicorp.com/gpg
 
-- name: Instala o vagrant
+- name: Vagrant install
   ansible.builtin.yum:
     name: vagrant
     state: present

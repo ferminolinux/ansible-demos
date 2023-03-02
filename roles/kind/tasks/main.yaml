@@ -1,5 +1,5 @@
 ---
-- name: Obtem o binário do Kind
+- name: Get kind executable file
   ansible.builtin.get_url:
     url: https://kind.sigs.k8s.io/dl/v0.17.0/kind-linux-amd64
     owner: root
@@ -7,16 +7,16 @@
     mode: 0775
     dest: /usr/local/bin/kind
 
-- name: Cria um cluster single-node do Kind
+- name: Create a single-node cluster 
   ansible.builtin.command:
     cmd: /usr/local/bin/kind create cluster
   when: multi_node == false
     
-- name: Cria um three-node cluster do Kind
+- name: Create a three-node cluster
   vars:
     config_file_path: /root/cluster.yaml
   block:
-    - name: Cria o arquivo de manifesto .yaml
+    - name: Create a manifest in .yaml format
       ansible.builtin.template:
         src: cluster.j2
         dest: "{{ config_file_path }}"
@@ -25,12 +25,12 @@
         group: root
       when: multi_node
 
-    - name: Cria o cluster a partir do .yaml
+    - name: Create a cluster using manifest file
       ansible.builtin.command:
         cmd: /usr/local/bin/kind create cluster --config {{ config_file_path }}
       when: multi_node
 
-    - name: Prepara o repositório do kubectl
+    - name: Add kubectl repository
       ansible.builtin.yum_repository:
         name: kubernetes
         description: Kubernetes Repository
@@ -39,13 +39,8 @@
         gpgcheck: true
         gpgkey: https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
       
-    - name: Instala o kubectl
+    - name: Kubectl install
       ansible.builtin.yum:
         name: kubectl
         state: present
-        
-
-
-
-  
 ...

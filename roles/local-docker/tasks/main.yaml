@@ -1,4 +1,4 @@
-- name: Habilita o repositório do Docker
+- name: Enable docker repo
   ansible.builtin.yum_repository:
     name: docker-ce
     description: Docker CE Stable - $basearch
@@ -7,7 +7,7 @@
     gpgcheck: true
     gpgkey: https://download.docker.com/linux/centos/gpg
 
-- name: Instala o docker
+- name: Docker install
   ansible.builtin.yum:
     name:
       - docker-ce
@@ -16,13 +16,13 @@
       - docker-compose-plugin
     state: present
 
-- name: Habilita o serviço do docker
+- name: Enable docker service
   ansible.builtin.systemd:
     name: docker
     state: started
     enabled: true
 
-- name: Prepara o usuário para administrar o Docker
+- name: Grant admin permissions to user on docker
   ansible.builtin.user:
     name: '{{ docker_user }}'
     groups: docker

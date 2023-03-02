@@ -1,2 +1,2 @@
 # vagrant
-Instalação do Vagrant via ansible
+Vagrant install

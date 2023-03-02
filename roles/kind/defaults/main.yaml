@@ -1,10 +1,10 @@
 multi_node: true
-# um cluster com 2 workers e 1 control-plane
+# a cluster with 2 workers and 1 control-plane
 simple_three_node_cluster:
   - role: control-plane
   - role: worker
   - role: worker
-# um cluster com 2 control-planes e 1 worker
+# a cluster with 2 control-planes and 1 worker
 ha_three_node_cluster:
   - role: control-plane
   - role: control-plane
