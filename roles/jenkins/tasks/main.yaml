@@ -5,7 +5,7 @@
     dest: /etc/yum.repos.d/jenkins.repo
   
 - name: Import jenkins key
-  ansible.builtin.rpm_key_module:
+  ansible.builtin.rpm_key:
     key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
     state: present
 
