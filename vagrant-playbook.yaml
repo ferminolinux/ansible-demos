@@ -1,0 +1,8 @@
+---
+- name: Install vagrant
+  hosts: all
+  become: true
+  roles:
+    - ./roles/virtualbox
+    - ./roles/vagrant
+...
