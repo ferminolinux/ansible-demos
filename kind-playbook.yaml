@@ -1,0 +1,8 @@
+---
+- name: Install Kind
+  hosts: all
+  become: true
+  roles:
+    - ./roles/docker
+    - ./roles/kind
+...
